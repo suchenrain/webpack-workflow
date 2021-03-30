@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -42,7 +42,10 @@ module.exports = {
             },
             {
                 exclude: /\.(html|css|js|json|ejs|jpg|png|gif)$/,
-                loader: 'file-loader'
+                loader: 'file-loader',
+                options: {
+                    name: '[hash:8].[ext]'
+                }
             }
         ]
     },
@@ -56,4 +59,9 @@ module.exports = {
     ],
     mode: "development",
     // mode: "production",
+    devServer: {
+        contentBase: join(__dirname, 'dist'),
+        port: 3000,
+        compress: true
+    }
 }
