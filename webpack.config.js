@@ -1,4 +1,5 @@
 const { resolve } = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     // 入口文件
@@ -27,7 +28,10 @@ module.exports = {
     },
     // plugins
     plugins: [
-
+        new HtmlWebpackPlugin({
+            title: 'custom template',
+            template: './src/index.html'
+        })
     ],
     mode: "development",
     // mode: "production",
