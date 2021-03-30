@@ -23,14 +23,31 @@ module.exports = {
                     // 将css变成commonjs模块加载到js中，样式字符串
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.(jpg|png|gif)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 9 * 1024,
+                        name: '[hash:10].[ext]',
+                        esModule: false
+                    }
+                }]
+
+            },
+            {
+                test: '/\.html$/',
+                loader: 'html-loader'
             }
         ]
     },
     // plugins
     plugins: [
+        // attention!!! resolve conflict with html-loader
         new HtmlWebpackPlugin({
             title: 'custom template',
-            template: './src/index.html'
+            template: './src/index.ejs'
         })
     ],
     mode: "development",
