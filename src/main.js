@@ -1,7 +1,7 @@
-import './style.css';
-import './iconfont.css'
+import './main.less'
+import './assets/icons/iconfont.css'
 
-import data from './data.json';
+import data from './assets/data.json';
 
 console.log('data :>> ', data);
 

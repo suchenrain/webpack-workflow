@@ -3,45 +3,47 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     // 入口文件
-    entry: "./src/index.js",
+    entry: './src/main.js',
     // 输出
     output: {
-        filename: "built.js",
-        path: resolve(__dirname, "dist")
+        filename: 'built.js',
+        path: resolve(__dirname, 'dist')
+
     },
-    // loader
+    // loader配置
     module: {
         rules: [
-            // 特定loader配置
+            // less 样式
             {
-                //匹配哪些文件
-                test: /\.css$/,
-                //使用哪些loader, 执行顺序从右往左
-                use: [
-                    // 创建style标签，将js中的样式插入到html的head里
-                    'style-loader',
-                    // 将css变成commonjs模块加载到js中，样式字符串
-                    'css-loader'
-                ]
+                test: /\.less$/,
+                use: ['style-loader', 'css-loader', 'less-loader']
             },
+            // css
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            // 图片
             {
                 test: /\.(jpg|png|gif)$/,
                 use: [{
                     loader: 'url-loader',
                     options: {
                         limit: 9 * 1024,
-                        name: '[hash:10].[ext]',
+                        name: '[hash:8].[ext]',
                         esModule: false
+
                     }
                 }]
-
             },
+            // html中的图片
             {
-                test: '/\.html$/',
+                test: /\.html$/,
                 loader: 'html-loader'
             },
+            // 其它资源
             {
-                exclude: /\.(html|css|js|json|ejs|jpg|png|gif)$/,
+                exclude: /\.(html|ejs|less|css|json|js|jpg|png|gif)$/,
                 loader: 'file-loader',
                 options: {
                     name: '[hash:8].[ext]'
@@ -49,19 +51,23 @@ module.exports = {
             }
         ]
     },
-    // plugins
+    // 插件
     plugins: [
-        // attention!!! resolve conflict with html-loader
         new HtmlWebpackPlugin({
-            title: 'custom template',
-            template: './src/index.ejs'
+            title: 'basic development env',
+            template: resolve(__dirname, './src/index.ejs')
         })
     ],
-    mode: "development",
-    // mode: "production",
+    // 模式: development | production
+    mode: 'development',
+
+    // dev server
     devServer: {
         contentBase: join(__dirname, 'dist'),
         port: 3000,
-        compress: true
+        compress: true,
+        open: true
     }
+
+
 }
