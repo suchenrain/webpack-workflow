@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "webpack": "rm -rf dist && webpack",
         "dev": "webpack serve",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -17,6 +18,7 @@
         "html-webpack-plugin": "4",
         "less": "^4.1.1",
         "less-loader": "^7.0.0",
+        "mini-css-extract-plugin": "^1.4.0",
         "style-loader": "^2.0.0",
         "url-loader": "^4.1.1",
         "webpack": "^4.0.0",

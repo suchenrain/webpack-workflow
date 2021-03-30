@@ -1,5 +1,6 @@
 const { resolve, join } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
     // 入口文件
@@ -16,12 +17,16 @@ module.exports = {
             // less 样式
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                use: [{
+                    loader: MiniCssExtractPlugin.loader, options: {
+                        // publicPath: 'test'
+                    }
+                }, 'css-loader', 'less-loader']
             },
             // css
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             // 图片
             {
@@ -31,8 +36,8 @@ module.exports = {
                     options: {
                         limit: 9 * 1024,
                         name: '[hash:8].[ext]',
-                        esModule: false
-
+                        esModule: false,
+                        outputPath: 'assets/images'
                     }
                 }]
             },
@@ -43,10 +48,11 @@ module.exports = {
             },
             // 其它资源
             {
-                exclude: /\.(html|ejs|less|css|json|js|jpg|png|gif)$/,
+                exclude: /\.(html|ejs|less|css|json|js|jpe?g|png|gif)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[hash:8].[ext]'
+                    name: '[hash:8].[ext]',
+                    outputPath: 'assets/icons'
                 }
             }
         ]
@@ -56,6 +62,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'basic development env',
             template: resolve(__dirname, './src/index.ejs')
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash:8].css',
+            chunkFilename: "[id].[hash:8].css"
         })
     ],
     // 模式: development | production
