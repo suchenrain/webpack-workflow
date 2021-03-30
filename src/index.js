@@ -1,4 +1,5 @@
 import './style.css';
+import './iconfont.css'
 
 import data from './data.json';
 

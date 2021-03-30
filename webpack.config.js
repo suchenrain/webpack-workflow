@@ -39,6 +39,10 @@ module.exports = {
             {
                 test: '/\.html$/',
                 loader: 'html-loader'
+            },
+            {
+                exclude: /\.(html|css|js|json|ejs|jpg|png|gif)$/,
+                loader: 'file-loader'
             }
         ]
     },
