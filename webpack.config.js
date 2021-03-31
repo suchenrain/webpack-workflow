@@ -21,12 +21,12 @@ module.exports = {
                     loader: MiniCssExtractPlugin.loader, options: {
                         // publicPath: 'test'
                     }
-                }, 'css-loader', 'less-loader']
+                }, 'css-loader', 'postcss-loader', 'less-loader']
             },
             // css
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
             },
             // 图片
             {
